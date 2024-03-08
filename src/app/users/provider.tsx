@@ -108,8 +108,6 @@ export function Provider(p: React.PropsWithChildren) {
           break;
       }
       // if (["edit","password","delete"].includes(param.mode as string)) data["id"] = e.target.id.value;
-      console.log(param.mode);
-      console.log(data);
 
       const res = await request({
         dataId: "saveData",
@@ -117,7 +115,6 @@ export function Provider(p: React.PropsWithChildren) {
         body: { data },
         mode: (param.mode as string) || "create",
       });
-      console.log(res);
       
       // setIsLoading(false);
       if (res.success) {

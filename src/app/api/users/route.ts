@@ -19,43 +19,27 @@ export async function POST(request: NextRequest, client?: PoolClient) {
       return responseWithData({ rows: detail });
     case "saveData":
       console.log(mode);
-      
+
       if (mode === "create") {
         const create = await createData(data.data);
-        // return responseBasicOK({
-        //   status: create?.status_code,
-        //   statusText: create?.message,
-        // });
         return NextResponse.json({
           status: create.status,
           statusText: create.message,
         });
       } else if (mode === "edit") {
         const edit = await updateData(data.data.id, data.data);
-        // return responseBasicOK({
-        //   status: create?.status_code,
-        //   statusText: create?.message,
-        // });
         return NextResponse.json({
           status: edit.status,
           statusText: edit.message,
         });
       } else if (mode === "password") {
         const uPassword = await deleteData(data.data.id, data.data);
-        // return responseBasicOK({
-        //   status: uPassword?.status_code,
-        //   statusText: uPassword?.message,
-        // });
         return NextResponse.json({
           status: uPassword.status,
           statusText: uPassword.message,
         });
       } else {
         const dData = await deleteData(data.data.id);
-        // return responseBasicOK({
-        //   status: dData?.status_code,
-        //   statusText: dData?.message || "",
-        // });
         return NextResponse.json({
           status: dData.status,
           statusText: dData.message,
