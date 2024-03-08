@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  nextjs:
+    container_name: nextjs
+    build:
+      context: ./
+      dockerfile: .Dockerfile
+    image: nextjs
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    env_file:
+      - .env
+    networks:
+      - nextjs-network
+
+  database:
+    container_name: database
+    image: postgres:12.8
+    restart: always
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=assessment_2
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgresql/data
+
+networks:
+  nextjs-network:
+    driver: bridge
+
+volumes:
+  db:
